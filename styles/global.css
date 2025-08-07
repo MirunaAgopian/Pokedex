@@ -2,9 +2,24 @@
     box-sizing: border-box;
     margin: 0;
     scroll-behavior: smooth;
-    font-family: 'Cormorant Garamond';
+    font-family: 'Luckiest Guy', 'Bangers', cursive;
     color: white;
     scrollbar-gutter: stable; 
+}
+
+@font-face {
+  font-display: swap; 
+  font-family: 'Luckiest Guy';
+  font-style: normal;
+  src: url('../assets/fonts/luckiest-guy-v24-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+@font-face {
+  font-display: swap; 
+  font-family: 'Bangers';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../assets/fonts/bangers-v24-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
 }
 
 .d-none {
@@ -33,6 +48,7 @@ h2 {
   
 }
 
+
 a {
   text-decoration: none;
   color: black;
@@ -44,6 +60,10 @@ header {
    justify-content: center;
    background-color: #11485a;  
    height: 60px;
+   position: fixed;
+   top: 0;
+   width: 100%;
+   z-index: 10;
 }
 
 .header-content {
@@ -85,7 +105,7 @@ main {
     display: flex;
     justify-content: center;
     min-height: 100vh;
-    padding-bottom: 65px;
+    padding: 65px 0;
 }
 
 .main-content {
@@ -105,25 +125,32 @@ footer {
     justify-content: center;
     width: 100%;
     height: 65px;
-    position: fixed;
+    position: absolute;
     bottom: 0;  
+    padding-left: 8px;
+    padding-right: 8px;
 }
 
 
-.footer span {
+.footer p {
   color: white;
   font-size: 18px;
 }
 
-@media(max-width: 650px) {
-  .footer-content {
-    width: 60%;
+
+@media(max-width: 400px) {
+  nav {
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
   }
 
+  header {
+    height: 100px;
+  }
+
+  main { 
+    padding-top: 120px;
 }
-
-@media(max-width: 460px) {
-  .footer-content {
-    width: 70%;
-  }
+ 
 }

@@ -1,0 +1,35 @@
+.grass{
+    background-color: rgb(56, 223, 56);
+}
+
+.fire {
+    background-color: rgb(185, 30, 30);
+}
+
+.water {
+    background-color: rgb(68, 68, 238);
+}
+
+.bug {
+    background-color: rgba(129, 70, 70, 0.829);
+}
+
+.normal {
+    background-color: lightgrey;
+}
+
+.poison {
+    background-color: rgb(123, 40, 156);
+}
+
+.electric {
+    background-color: rgb(23, 145, 175);
+}
+
+.ground {
+    background-color: rgba(139, 53, 53, 0.247);
+}
+
+.fairy {
+    background-color: pink;
+}
