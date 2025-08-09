@@ -59,7 +59,7 @@ header {
    display: flex;
    justify-content: center;
    background-color: #11485a;  
-   height: 60px;
+   height: 80px;
    position: fixed;
    top: 0;
    width: 100%;
@@ -98,6 +98,11 @@ nav span {
   font-size: 24px;
 }
 
+.search-bar {
+  color: black;
+  height: 40px;
+}
+
 
 /* Styiling the main content */
 
@@ -105,7 +110,7 @@ main {
     display: flex;
     justify-content: center;
     min-height: 100vh;
-    padding: 65px 0;
+    padding: 80px 0;
 }
 
 .main-content {
@@ -123,6 +128,8 @@ footer {
     padding-top: 20px;
     display: flex;
     justify-content: center;
+    align-items: center;
+    gap: 18px;
     width: 100%;
     height: 65px;
     position: absolute;
@@ -146,11 +153,15 @@ footer {
   }
 
   header {
-    height: 100px;
+    height: 120px;
   }
 
   main { 
     padding-top: 120px;
+}
+
+.search-bar{
+  height: 40px;
 }
  
 }

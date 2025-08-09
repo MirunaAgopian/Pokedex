@@ -21,25 +21,60 @@
             />
             <span>Pokedex</span>
           </div>
-          <input class="search-bar" type="text" placeholder="Search pokemon" />
+          <div class="search-container">
+            <input
+              id="search_bar"
+              class="search-bar"
+              type="text"
+              placeholder="Search pokemon"
+            />
+            <p id="error-msg" class='error'></p>
+          </div>
         </nav>
       </div>
     </header>
     <main>
       <div class="main-content">
-        <section id="pokemons_container" class="poke-container">
-          <p>here come the PokemonS!</p>
-        </section>
+        <section id="pokemons_container" class="poke-container"></section>
         <section id="overlay"></section>
         <section id="single_pokemon_container"></section>
-        <button>Show more pokemons</button>
+        <button onclick="displayMorePokemons()">Show more pokemons</button>
+        <section id="loading_spinner" class="loading-spinner d-none">
+          <div class="spinner-text">
+            <svg
+              class="spinner"
+              width="50"
+              height="50"
+              viewBox="0 0 50 50"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle
+                cx="25"
+                cy="25"
+                r="20"
+                stroke="#999"
+                stroke-width="5"
+                fill="none"
+                stroke-dasharray="90"
+                stroke-dashoffset="30"
+                stroke-linecap="round"
+              />
+            </svg>
+            <span>Loading pokemons...</span>
+          </div>
+        </section>
       </div>
     </main>
     <footer>
+      <img
+        class="logo"
+        src="./assets/img/favicon.png"
+        alt="logo of the page, a red and gray circle divided in the middle"
+      />
       <p>&copy; 2025 Miruna Agopian - alle Rechte vorbehalten</p>
     </footer>
     <script src="./script.js"></script>
     <script src="./scripts/templates.js"></script>
-    <script src="./scripts/design.js"></script>
+    <script src="./scripts/helpers.js"></script>
   </body>
 </html>

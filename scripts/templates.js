@@ -14,10 +14,19 @@ function allPokemonsTemplate(pokemonDetails){
             </div>
             <div class='abilities-general'>
                 <p>${type}</p>
-                <audio controls src='${sound}'></audio>
+                <div class='audio-container'>
+                    <img onclick='playPokemonSound(${number})' class='play-btn' src="./assets/img/play_btn.svg" alt="play button to hear the pokemon's sound">
+                    <audio id='audio_${number}' src='${sound}'></audio>
+                </div>
             </div>
     </div>`;
 
+}
+
+//2. Error template 
+
+function searchError(){
+    return `<p class='error'>Min. 3 characters</p>`;
 }
 
 //2. template function for Pokemon overlay + pop-up (like in Fotogram)

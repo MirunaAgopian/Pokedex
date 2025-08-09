@@ -1,11 +1,24 @@
+.error {
+    color: red;
+    font-size: 12px;
+}
+
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
 button {
     width: 120px;
-    height: 40px;
-    color: #092630;
+    height: 60px;
+    color: white;
     cursor: pointer;
-    background-color: #00CED1;
+    background-color: #e6381f;
+    border-radius: 18px;
     position: absolute;
-    bottom: 20%;
+    bottom: 10px;
     right: 40px;
 }
 
@@ -16,6 +29,7 @@ button {
     flex-wrap: wrap;
     width: 100%;
     gap: 16px;
+    padding-bottom: 60px;
 }
 
 .pokemon-general-details {
@@ -28,6 +42,12 @@ button {
     align-items: center;
     border-radius: 20px;
     padding: 8px 0;
+    cursor: pointer;
+}
+
+.pokemon-general-details:hover{
+    border-radius: 20px;
+    box-shadow: 8px 8px 8px rgba(250, 248, 248, 0.8);
 }
 
 h3 {
@@ -60,3 +80,40 @@ audio {
     width: 80px;
     height: 80px;
 }
+
+.play-btn {
+    height: 48px;
+    width: 48px;
+    cursor: pointer;
+}
+
+.loading-spinner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    height: 100vh;
+    width: 100%;
+    background-color: #213b44;
+}
+
+.spinner-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+}
+
+.spinner{
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
