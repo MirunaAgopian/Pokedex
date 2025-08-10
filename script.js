@@ -3,7 +3,8 @@ let pokemonsArray = [];
 let detailedPokemons = [];
 let displayedCount = 20;
 
-//1. Fetching data - GET all 40 Pokemons
+//1. Fetching data
+//1.1 - GET all 40 Pokemons
 
 async function getPokemons(path=""){
     let response = await fetch(BASE_URL + path + ".json");
@@ -15,12 +16,13 @@ async function getPokemons(path=""){
         pokemonsArray = responseAsJson.results;
         detailedPokemons = await getSinglePokemon(pokemonsArray);
         displayPokemons();
-                
+        console.log(detailedPokemons);
+        
     }
    
 }
 
-//1.2. Fetching data - GET individual pokemon 
+//1.2. GET individual pokemon 
 async function getSinglePokemon(pokemonsArray){
     let allDetails = [];
     for(let pokemon of pokemonsArray) {
@@ -45,8 +47,8 @@ function displayPokemons(){
     container.innerHTML = '';
 
     let batch = detailedPokemons.slice(0, displayedCount);
-    batch.forEach(pokemonDetails => {
-        container.innerHTML += allPokemonsTemplate(pokemonDetails);
+    batch.forEach((pokemonDetails, index) => {
+        container.innerHTML += allPokemonsTemplate(pokemonDetails, index);
         applyPokemonsBackground(pokemonDetails);
     });
 
@@ -58,6 +60,7 @@ function displayMorePokemons(){
     showLoadingSpinner();
     setTimeout(hideLoadingSpinner, 2000);
     displayPokemons();
+    document.getElementById('show_more_btn').disabled = true;
 }
 
 //2.3. Render & hide loading screen
@@ -72,6 +75,27 @@ function hideLoadingSpinner(){
 }
 
 //2.4.Render single pokemon overlay...
+
+function openOverlay(pokemonDetails){
+   let overlay = document.getElementById('overlay');
+   let singlePokemonContainer = document.getElementById('single_pokemon_container');
+
+   singlePokemonContainer.innerHTML = singlePokemonTemplate(pokemonDetails);
+   overlay.classList.remove('d-none');
+   singlePokemonContainer.classList.remove('d-none');
+   document.body.classList.add('lock-scroll');
+}
+
+function openOverlayByIndex(index){
+    let pokemonDetails = detailedPokemons[index];
+    openOverlay(pokemonDetails);
+    applyPokemonsBackground(pokemonDetails);
+}
+
+function renderStatsTemplate(pokemonDetails){
+    let singlePokemonContainer = document.getElementById('single_pokemon_container');
+    singlePokemonContainer.innerHTML = renderStatsTemplate(pokemonDetails);
+}
 
 //3.Search functions
 

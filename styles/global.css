@@ -1,3 +1,4 @@
+/* General styling */
 *{
     box-sizing: border-box;
     margin: 0;
@@ -24,6 +25,10 @@
 
 .d-none {
   display: none !important;
+}
+
+.lock-scroll {
+  overflow: hidden;
 }
 
 body{
@@ -54,6 +59,8 @@ a {
   color: black;
   cursor: pointer;
 }
+
+/* Header styling */
 
 header {
    display: flex;
@@ -122,6 +129,7 @@ main {
     position: relative;
 }
 
+/* Footer styling */
 
 footer {
     background-color: #11485a;  
@@ -144,6 +152,7 @@ footer {
   font-size: 18px;
 }
 
+/* Media queries */
 
 @media(max-width: 400px) {
   nav {

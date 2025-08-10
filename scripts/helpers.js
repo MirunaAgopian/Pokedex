@@ -35,6 +35,30 @@ function setPokemonImgColor(type, number) {
     }
 }
 
+function setSinglePokemonImgColor(type, number) {
+    let SinglePokeImg = document.getElementById(`single_pokemon_${number}`);
+
+    if(type === 'grass'){
+        SinglePokeImg.classList.add('grass');
+    } else if(type === 'fire') {
+        SinglePokeImg.classList.add('fire');
+    } else if(type === 'water'){
+        SinglePokeImg.classList.add('water');
+    } else if(type === 'bug'){
+        SinglePokeImg.classList.add('bug');
+    } else if(type === 'normal'){
+        SinglePokeImg.classList.add('normal');
+    } else if(type === 'poison'){
+        SinglePokeImg.classList.add('poison');
+    } else if(type === 'electric'){
+        SinglePokeImg.classList.add('electric');
+    } else if(type === 'ground'){
+        SinglePokeImg.classList.add('ground');
+    } else if(type === 'fairy'){
+        SinglePokeImg.classList.add('fairy');
+    }
+} //here I must find a solution for the runtime error!!!
+
 function applyPokemonsBackground(pokemonDetails){
     const type = pokemonDetails.types[0].type.name;
     const number = pokemonDetails.id;
@@ -67,4 +91,20 @@ function showSearchResults(trimmedQuery){
     return detailedPokemons.filter(pokemon => {
         return pokemon.name?.toLowerCase().includes(trimmedQuery);
     });
+}
+
+//4. Helper functions for the main overlay
+
+function closeOverlay(){
+    document.getElementById('overlay').classList.toggle('d-none');
+    document.getElementById('single_pokemon_container').classList.toggle('d-none');
+    document.body.classList.remove('lock-scroll');
+}
+
+function moveToRight(){
+    //comming next
+}
+
+function moveToLeft(){
+    //comming next
 }
