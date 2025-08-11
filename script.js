@@ -80,7 +80,10 @@ function openOverlay(pokemonDetails){
    let overlay = document.getElementById('overlay');
    let singlePokemonContainer = document.getElementById('single_pokemon_container');
 
+   window.currentPokemon = pokemonDetails;
    singlePokemonContainer.innerHTML = singlePokemonTemplate(pokemonDetails);
+   renderPokemonsStatistics('about', pokemonDetails);
+
    overlay.classList.remove('d-none');
    singlePokemonContainer.classList.remove('d-none');
    document.body.classList.add('lock-scroll');
@@ -92,9 +95,22 @@ function openOverlayByIndex(index){
     applyPokemonsBackground(pokemonDetails);
 }
 
-function renderStatsTemplate(pokemonDetails){
-    let singlePokemonContainer = document.getElementById('single_pokemon_container');
-    singlePokemonContainer.innerHTML = renderStatsTemplate(pokemonDetails);
+function renderPokemonsStatistics(section, pokemonDetails) {
+    let container = document.getElementById('pokemon_statistics');
+    switch(section){
+        case 'about':
+            container.innerHTML = aboutTemplate(pokemonDetails);
+            break;
+        case 'stats':
+            container.innerHTML = statsTemplate(pokemonDetails);
+            break;
+        case 'ability':
+            container.innerHTML = abilityTemplate(pokemonDetails);
+            break;
+        case 'evolution':
+            container.innerHTML = evolutionTemplate(pokemonDetails);
+            break;
+    }
 }
 
 //3.Search functions

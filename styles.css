@@ -192,6 +192,23 @@ audio {
     filter: drop-shadow(0 0 6px #b4ff3c) brightness(1.2);
 }
 
+/* Stats-template */
+
+.stat-bar {
+  width: 100px;
+  height: 10px;
+  background-color: #eee;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-top: 4px;
+}
+
+.fill {
+  height: 100%;
+  background-color: #49bb49;
+  transition: width 0.5s ease;
+}
+
 /* Spinner overlay */
 
 .loading-spinner {

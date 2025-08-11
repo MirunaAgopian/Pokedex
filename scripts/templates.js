@@ -23,91 +23,127 @@ function allPokemonsTemplate(pokemonDetails, index){
 
 }
 
-//2. template function for Pokemon overlay + pop-up (like in Fotogram)
+//2. template function for Pokemon overlay + pop-up
 
 function singlePokemonTemplate(pokemonDetails){
   let image = pokemonDetails.sprites.front_default;
   let number = pokemonDetails.id;
   let name = pokemonDetails.name;
-  let type = pokemonDetails.types[0].type.name;
-  let height = pokemonDetails.height;
-  let weight = pokemonDetails.weight;
-  let ability = pokemonDetails.abilities[0].ability.name;
 
     return `<div class="single-pokemon-card">
             <h3><span>${number}</span>${name}</h3>
             <img id='single_pokemon_${number}' class='single-pokemon-img' src="${image}" alt="an image of the pokemon">
             <div class="stats">
-              <a href='#'>About</a>
-              <a href='#' onclick='statsTemplate(pokemonDetails)'>Stats</a>
-              <a href='#'>Gender</a>
-              <a href='#'>Evolution</a>
+              <a href="#" onclick="renderPokemonsStatistics('about', window.currentPokemon)">About</a>
+              <a href="#" onclick="renderPokemonsStatistics('stats', window.currentPokemon)">Stats</a>
+              <a href="#" onclick="renderPokemonsStatistics('ability', window.currentPokemon)">Abilities</a>
+              <a href="#" onclick="renderPokemonsStatistics('evolution', window.currentPokemon)">Evolution</a>
             </div>
-            <table class='table-about'>
-              <tr>
-                <td>Type</td>
-                <td>${type}</td>
-              </tr>
-              <tr>
-                <td>Species</td>
-                <td>${name}</td>
-              </tr>
-              <tr>
-                <td>Height</td>
-                <td>${height} m</td>
-              </tr>
-              <tr>
-                <td>Weight</td>
-                <td>${weight} kg</td>
-              </tr>
-              <tr>
-                <td>Abilities</td>
-                <td>${ability}</td>
-              </tr>
-            </table>
+            <div id='pokemon_statistics'></div>
             <div class="arrow-buttons">
               <img src="./assets/img/left-arrow.png" alt="left arrow">
               <img src="./assets/img/right-arrow.png" alt="right arrow">
             </div>`;
 }
 
-function statsTemplate(pokemonDetails){
-  let image = pokemonDetails.sprites.front_default;
-  let number = pokemonDetails.id;
+function aboutTemplate(pokemonDetails){
   let name = pokemonDetails.name;
+  let type = pokemonDetails.types[0].type.name;
+  let height = pokemonDetails.height;
+  let weight = pokemonDetails.weight;
 
-    return  `<div class="single-pokemon-card">
-            <h3><span>${number}</span>${name}</h3>
-            <img id='single_pokemon_${number}' class='single-pokemon-img' src="${image}" alt="an image of the pokemon">
-            <div class="stats">
-              <a href='#'>About</a>
-              <a href='#'>Stats</a>
-              <a href='#'>Gender</a>
-              <a href='#'>Evolution</a>
-            </div>
-            <table class='table-about'>
+  return ` <table class='table-about'>
+                <tr>
+                  <td>Type</td>
+                  <td>${type}</td>
+                </tr>
+                <tr>
+                  <td>Species</td>
+                  <td>${name}</td>
+                </tr>
+                <tr>
+                  <td>Height</td>
+                  <td>${height} m</td>
+                </tr>
+                <tr>
+                  <td>Weight</td>
+                  <td>${weight} kg</td>
+                </tr>
+              </table>`;
+
+}
+
+function statsTemplate(pokemonDetails){
+  let experience = pokemonDetails.base_experience;
+  let attack = pokemonDetails.stats[1].base_stat;
+  let defense = pokemonDetails.stats[2].base_stat;
+  let speed = pokemonDetails.stats[5].base_stat;
+
+    return  `<table class='table-about'>
               <tr>
                 <td>Base experience</td>
-                <td>...</td>
+                <td>
+                     <div class="stat-bar">
+                      <div class="fill" style="width: ${experience}%;"></div>
+                     </div>
+                 </td>  
               </tr>
               <tr>
                 <td>Attack</td>
-                <td>....</td>
+                 <td>
+                     <div class="stat-bar">
+                      <div class="fill" style="width: ${attack}%;"></div>
+                     </div>
+                 </td>  
               </tr>
               <tr>
                 <td>Defense</td>
-                <td>...</td>
+                <td>
+                     <div class="stat-bar">
+                      <div class="fill" style="width: ${defense}%;"></div>
+                     </div>
+                 </td>  
               </tr>
               <tr>
                 <td>Speed</td>
-                <td>....</td>
+                <td>
+                     <div class="stat-bar">
+                      <div class="fill" style="width: ${speed}%;"></div>
+                     </div>
+                 </td>  
               </tr>
-            </table>
-            <div class="arrow-buttons">
-              <img src="./assets/img/left-arrow.png" alt="left arrow">
-              <img src="./assets/img/right-arrow.png" alt="right arrow">
-            </div>`;
+            </table>`
 } 
+
+function abilityTemplate(pokemonDetails){
+  let abilities = pokemonDetails.abilities;
+  let primary = abilities.find(ability => !ability.is_hidden);
+  let hidden = abilities.find(ability => ability.is_hidden)
+  let primaryAbility = primary ? primary.ability.name : 'None';
+  let secondaryAbility = hidden ? hidden.ability.name : 'None';
+
+    return  `<table class='table-about'>
+              <tr>
+                <td>Primary</td>
+                <td>${primaryAbility}</td>
+              </tr>
+              <tr>
+                <td>Secondary</td>
+                <td>${secondaryAbility}</td>
+              </tr>
+            </table>`
+
+}
+
+function evolutionTemplate(pokemonDetails){
+  let evoImg = pokemonDetails.img;
+
+  return  `<table class='table-about'>
+              <tr>
+                <td>Images to come? ...</td>
+              </tr>
+            </table>`
+}
 
 
 //3. Error template 
