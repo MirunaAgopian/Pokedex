@@ -1,4 +1,4 @@
-//1. template function for the pokemons (the first 20 and the last 20)
+//1. template function for the pokemons (all 40)
 
 function allPokemonsTemplate(pokemonDetails, index){
     let number = pokemonDetails.id;
@@ -25,7 +25,7 @@ function allPokemonsTemplate(pokemonDetails, index){
 
 //2. template function for Pokemon overlay + pop-up
 
-function singlePokemonTemplate(pokemonDetails){
+function singlePokemonTemplate(pokemonDetails, index){
   let image = pokemonDetails.sprites.front_default;
   let number = pokemonDetails.id;
   let name = pokemonDetails.name;
@@ -41,8 +41,8 @@ function singlePokemonTemplate(pokemonDetails){
             </div>
             <div id='pokemon_statistics'></div>
             <div class="arrow-buttons">
-              <img src="./assets/img/left-arrow.png" alt="left arrow">
-              <img src="./assets/img/right-arrow.png" alt="right arrow">
+              <img onclick='moveToLeft()' src="./assets/img/left-arrow.png" alt="left arrow">
+              <img onclick='moveToRight()' src="./assets/img/right-arrow.png" alt="right arrow">
             </div>`;
 }
 
@@ -135,15 +135,15 @@ function abilityTemplate(pokemonDetails){
 
 }
 
-function evolutionTemplate(pokemonDetails){
-  let evoImg = pokemonDetails.img;
+function evolutionTemplate(evoChain){
+  let pokemonId = evoChain.id;
+  let imgUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonId}.png`;
 
-  return  `<table class='table-about'>
-              <tr>
-                <td>Images to come? ...</td>
-              </tr>
-            </table>`
+  return  `<div class='pokemons-evo-chain'>
+            <img class="evo-chain-imgs" src="${imgUrl}" alt="images showing the species evolution of the pokemons">
+          </div>`;
 }
+
 
 
 //3. Error template 

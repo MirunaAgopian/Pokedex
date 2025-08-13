@@ -1,26 +1,10 @@
-Voraussetzungen: 40 Pokemoni
-lista cu cei 40:  https://pokeapi.co/api/v2/pokemon?limit=40&offset=0.
+To do:
 
-Caracteristici Pokemoni:
+evo chain images !!!!!
+(so far I have only fetched more data for each species and also for the evo_chain )
 
-Kleine Pokemonkarte (Listenansicht):
-Werte der kleinen Pokemonkarte:
-Name (Groß geschrieben!)
-Typ/en
-Bild des Pokemons
-Hintergrundfarbe passend zum Typ
-ID (optional)
-Die Karte hat einen Hovereffekt.
+fix bugs related to:
 
-
-
-Cerinte:
-<Button>
-Unten auf der Seite gibt es einen Button, um weitere 20-40 Pokemon zu laden. 
-Es erscheint ein Loadingscreen (Userfeedback).
-Der Button kann während des Ladens nicht erneut angeklickt werden.
-
-Search-Funtion!!
-
-overlay for loading Spinner!!!!
+- media player error
+- background color for pop-up
 

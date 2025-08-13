@@ -209,6 +209,20 @@ audio {
   transition: width 0.5s ease;
 }
 
+/* Evo-chain */
+.pokemons-evo-chain {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    background-color: whitesmoke;
+}
+
+.evo-chain-imgs {
+    height: 48px;
+    width: 48px;
+}
+
 /* Spinner overlay */
 
 .loading-spinner {

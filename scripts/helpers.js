@@ -102,9 +102,20 @@ function closeOverlay(){
 }
 
 function moveToRight(){
-    //comming next
+    currentPokemonIndex++;
+    if(currentPokemonIndex >= detailedPokemons.length){
+        currentPokemonIndex = 0;
+    }
+
+    openOverlayByIndex(currentPokemonIndex);
 }
 
 function moveToLeft(){
-    //comming next
+    currentPokemonIndex--;
+
+    if(currentPokemonIndex < 0){
+        currentPokemonIndex = detailedPokemons.length - 1;
+    }
+
+    openOverlayByIndex(currentPokemonIndex);
 }

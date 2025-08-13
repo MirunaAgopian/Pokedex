@@ -1,7 +1,12 @@
 let BASE_URL = 'https://pokeapi.co/api/v2/pokemon?limit=40&offset=0'
 let pokemonsArray = [];
 let detailedPokemons = [];
+let speciesData = [];
+let evoChain = [];
 let displayedCount = 20;
+let currentPokemonIndex = 0;
+
+
 
 //1. Fetching data
 //1.1 - GET all 40 Pokemons
@@ -14,10 +19,13 @@ async function getPokemons(path=""){
     } else {
         let responseAsJson = await response.json();
         pokemonsArray = responseAsJson.results;
+
         detailedPokemons = await getSinglePokemon(pokemonsArray);
+        speciesData = await  getSpeciesDetails(detailedPokemons);
+        evoChain = await getEvoChain(speciesData);
+
         displayPokemons();
-        console.log(detailedPokemons);
-        
+        console.log(evoChain);     
     }
    
 }
@@ -39,6 +47,44 @@ async function getSinglePokemon(pokemonsArray){
     return allDetails;
 }
 
+//1.3. GET species data and evo chain
+
+async function getSpeciesDetails(detailedPokemons){
+    let pokemonSpeciesDatails =[];
+    for(let pokemon of detailedPokemons){
+        let response = await fetch(pokemon.species.url);
+
+        if(!response.ok){
+            throw new Error(`Failed to fetch ${pokemon.name}`);
+            
+        } else {
+            let speciesDetails = await response.json();
+            pokemonSpeciesDatails.push(speciesDetails);
+        }
+    }
+
+    return pokemonSpeciesDatails;
+    
+}
+
+async function getEvoChain(speciesData){
+    let pokemonEvoChain =[];
+    for(let species of speciesData){
+        let response = await fetch(species.evolution_chain.url);
+
+        if(!response.ok){
+            throw new Error(`Failed to fetch ${species.name}`);
+            
+        } else {
+            let evoChainDatails = await response.json();
+            pokemonEvoChain.push(evoChainDatails);
+        }
+    }
+
+    return pokemonEvoChain;
+    
+}
+
 //2. Rendering functions
 //2.1 Render the first 20 pokemons
 
@@ -51,8 +97,9 @@ function displayPokemons(){
         container.innerHTML += allPokemonsTemplate(pokemonDetails, index);
         applyPokemonsBackground(pokemonDetails);
     });
-
 }
+
+
 
 //2.2 render the last 20 pokemons
 function displayMorePokemons(){
@@ -62,6 +109,7 @@ function displayMorePokemons(){
     displayPokemons();
     document.getElementById('show_more_btn').disabled = true;
 }
+
 
 //2.3. Render & hide loading screen
 function showLoadingSpinner(){
@@ -74,7 +122,7 @@ function hideLoadingSpinner(){
     spinnerOverlay.classList.add('d-none');
 }
 
-//2.4.Render single pokemon overlay...
+//2.4.Render single pokemon overlay
 
 function openOverlay(pokemonDetails){
    let overlay = document.getElementById('overlay');
@@ -90,10 +138,12 @@ function openOverlay(pokemonDetails){
 }
 
 function openOverlayByIndex(index){
+    currentPokemonIndex = index;
     let pokemonDetails = detailedPokemons[index];
     openOverlay(pokemonDetails);
-    applyPokemonsBackground(pokemonDetails);
+    // applyPokemonsBackground(pokemonDetails);
 }
+
 
 function renderPokemonsStatistics(section, pokemonDetails) {
     let container = document.getElementById('pokemon_statistics');
@@ -140,6 +190,8 @@ function renderFilteredPokemons(filteredResults){
         }
     });
 }
+
+
 
 let searchBar = document.getElementById('search_bar');
 searchBar.addEventListener('input', function(){
