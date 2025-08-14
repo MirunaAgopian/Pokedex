@@ -11,7 +11,9 @@ function playPokemonSound(pokemonId){
 
 //2. function for pokemon background colors
 
-function setPokemonImgColor(type, number) {
+function setPokemonImgColor(pokemonDetails) {
+    const type = pokemonDetails.types[0].type.name;
+    const number = pokemonDetails.id;
     let pokeImg = document.getElementById(`pokemon_${number}`);
 
     if(type === 'grass'){
@@ -35,7 +37,9 @@ function setPokemonImgColor(type, number) {
     }
 }
 
-function setSinglePokemonImgColor(type, number) {
+function setSinglePokemonImgColor(pokemonDetails) {
+    const type = pokemonDetails.types[0].type.name;
+    const number = pokemonDetails.id;
     let SinglePokeImg = document.getElementById(`single_pokemon_${number}`);
 
     if(type === 'grass'){
@@ -57,19 +61,7 @@ function setSinglePokemonImgColor(type, number) {
     } else if(type === 'fairy'){
         SinglePokeImg.classList.add('fairy');
     }
-} //here I must find a solution for the runtime error!!!
-
-function applyPokemonsBackground(pokemonDetails){
-    const type = pokemonDetails.types[0].type.name;
-    const number = pokemonDetails.id;
-
-    if(type && number) {
-        setPokemonImgColor(type, number);
-    } else {
-        console.warn(`Missing type or number for ${pokemonDetails.name}`)
-    }
-
-}
+} 
 
 //3. Helper functions for the search bar
 

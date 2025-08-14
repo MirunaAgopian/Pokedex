@@ -25,14 +25,16 @@ function allPokemonsTemplate(pokemonDetails, index){
 
 //2. template function for Pokemon overlay + pop-up
 
-function singlePokemonTemplate(pokemonDetails, index){
+function singlePokemonTemplate(pokemonDetails){
   let image = pokemonDetails.sprites.front_default;
   let number = pokemonDetails.id;
   let name = pokemonDetails.name;
 
     return `<div class="single-pokemon-card">
             <h3><span>${number}</span>${name}</h3>
-            <img id='single_pokemon_${number}' class='single-pokemon-img' src="${image}" alt="an image of the pokemon">
+            <div id='single_pokemon_${number}' class='single-pokemon-img'>
+              <img src="${image}" alt="an image of the pokemon">
+            </div>
             <div class="stats">
               <a href="#" onclick="renderPokemonsStatistics('about', window.currentPokemon)">About</a>
               <a href="#" onclick="renderPokemonsStatistics('stats', window.currentPokemon)">Stats</a>
@@ -137,13 +139,13 @@ function abilityTemplate(pokemonDetails){
 
 function evolutionTemplate(evoChain){
   let pokemonId = evoChain.id;
-  let imgUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonId}.png`;
+  let firstStage = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonId}.png`;
 
   return  `<div class='pokemons-evo-chain'>
-            <img class="evo-chain-imgs" src="${imgUrl}" alt="images showing the species evolution of the pokemons">
+            <img class="evo-chain-imgs" src="${firstStage}" alt="images showing the species evolution of the pokemons">
           </div>`;
 }
-
+//problem not solved yet...
 
 
 //3. Error template 

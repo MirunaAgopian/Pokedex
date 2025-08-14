@@ -26,6 +26,7 @@ async function getPokemons(path=""){
 
         displayPokemons();
         console.log(evoChain);     
+        console.log(detailedPokemons);   
     }
    
 }
@@ -62,9 +63,7 @@ async function getSpeciesDetails(detailedPokemons){
             pokemonSpeciesDatails.push(speciesDetails);
         }
     }
-
-    return pokemonSpeciesDatails;
-    
+    return pokemonSpeciesDatails;  
 }
 
 async function getEvoChain(speciesData){
@@ -80,9 +79,7 @@ async function getEvoChain(speciesData){
             pokemonEvoChain.push(evoChainDatails);
         }
     }
-
     return pokemonEvoChain;
-    
 }
 
 //2. Rendering functions
@@ -95,7 +92,8 @@ function displayPokemons(){
     let batch = detailedPokemons.slice(0, displayedCount);
     batch.forEach((pokemonDetails, index) => {
         container.innerHTML += allPokemonsTemplate(pokemonDetails, index);
-        applyPokemonsBackground(pokemonDetails);
+        // applyPokemonsBackground(pokemonDetails);
+        setPokemonImgColor(pokemonDetails);
     });
 }
 
@@ -131,6 +129,7 @@ function openOverlay(pokemonDetails){
    window.currentPokemon = pokemonDetails;
    singlePokemonContainer.innerHTML = singlePokemonTemplate(pokemonDetails);
    renderPokemonsStatistics('about', pokemonDetails);
+   setSinglePokemonImgColor(pokemonDetails);
 
    overlay.classList.remove('d-none');
    singlePokemonContainer.classList.remove('d-none');
@@ -141,7 +140,6 @@ function openOverlayByIndex(index){
     currentPokemonIndex = index;
     let pokemonDetails = detailedPokemons[index];
     openOverlay(pokemonDetails);
-    // applyPokemonsBackground(pokemonDetails);
 }
 
 
@@ -186,7 +184,7 @@ function renderFilteredPokemons(filteredResults){
 
         if(pokemonIndex !== -1){
             container.innerHTML += allPokemonsTemplate(pokemon);
-            applyPokemonsBackground(pokemon);
+            setPokemonImgColor(pokemon);
         }
     });
 }

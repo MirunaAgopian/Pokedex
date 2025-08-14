@@ -6,5 +6,4 @@ evo chain images !!!!!
 fix bugs related to:
 
 - media player error
-- background color for pop-up
 

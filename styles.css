@@ -136,6 +136,13 @@ audio {
 
 .single-pokemon-img{
     height: 150px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.single-pokemon-img img {
+    height: 150px;
     width: 150px;
 }
 
