@@ -1,0 +1,18 @@
+# Node.js projects
+node_modules/
+.env
+dist/
+build/
+
+# IDE/editor settings
+.vscode/
+*.log
+*.DS_Store
+
+# Operating system junk
+Thumbs.db
+.DS_Store
+
+# Optional: dependency lock files
+package-lock.json
+yarn.lock
