@@ -44,6 +44,7 @@ Pokedex/
 ├── styles.css
 ├── styles/
     └── global.css
+    └── colors.css
 │ 
 ├── scripts/
 │   └── helpers.js
