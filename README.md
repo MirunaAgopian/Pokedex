@@ -20,7 +20,7 @@ _A short webapp displaying pokemons fetched from the pokeAPI. Play each pokemon'
 - A modern web browser
 - A code editor like Visual Studio Code
 
-Installation
+### Installation
 # Clone the repository
 <pre>
 git clone https://github.com/MirunaAgopian/Pokedex
