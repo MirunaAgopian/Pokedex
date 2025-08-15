@@ -1,9 +1,11 @@
 To do:
 
-evo chain images !!!!!
-(so far I have only fetched more data for each species and also for the evo_chain )
+1. refractor the function renderAllEvolutionChain(evoChainArray, targetPokemonName)
+so that it takes the species array as an argument and not the evoChainArray!!!
 
-fix bugs related to:
++ then add evo chain images !!!!!
+
+2. fix bugs related to:
 
 - media player error
 

@@ -24,11 +24,11 @@ async function getPokemons(path=""){
         speciesData = await  getSpeciesDetails(detailedPokemons);
         evoChain = await getEvoChain(speciesData);
 
-        displayPokemons();
-        console.log(evoChain);     
-        console.log(detailedPokemons);   
+        displayPokemons();    
+        console.log(detailedPokemons); 
+        console.log(speciesData);
+        console.log(evoChain);
     }
-   
 }
 
 //1.2. GET individual pokemon 
@@ -92,7 +92,6 @@ function displayPokemons(){
     let batch = detailedPokemons.slice(0, displayedCount);
     batch.forEach((pokemonDetails, index) => {
         container.innerHTML += allPokemonsTemplate(pokemonDetails, index);
-        // applyPokemonsBackground(pokemonDetails);
         setPokemonImgColor(pokemonDetails);
     });
 }
@@ -156,9 +155,32 @@ function renderPokemonsStatistics(section, pokemonDetails) {
             container.innerHTML = abilityTemplate(pokemonDetails);
             break;
         case 'evolution':
-            container.innerHTML = evolutionTemplate(pokemonDetails);
+            container.innerHTML = renderAllEvolutionChain(evoChain, pokemonDetails.name);
             break;
     }
+}
+
+function extractEvolutionStages(chain){
+  let stages = [];
+  stages.push(chain.species.name);
+  if(chain.evolves_to.length > 0){
+    stages.push(chain.evolves_to[0].species.name);
+
+    if(chain.evolves_to[0].evolves_to.length > 0){
+      stages.push(chain.evolves_to[0].evolves_to[0].species.name);
+    }
+  }
+  return stages;
+}
+
+function renderAllEvolutionChain(evoChainArray, targetPokemonName){
+  for (let chainData of evoChainArray) { //here I should change the evoChainArray with the speciesArray
+    const stages = extractEvolutionStages(chainData.chain);
+    if (stages.includes(targetPokemonName.toLowerCase())) {
+      return evolutionTemplate(chainData);
+    }
+  }
+  return "<p>No evolution chain found.</p>";
 }
 
 //3.Search functions

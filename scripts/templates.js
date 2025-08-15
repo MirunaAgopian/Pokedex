@@ -3,7 +3,7 @@
 function allPokemonsTemplate(pokemonDetails, index){
     let number = pokemonDetails.id;
     let name = pokemonDetails.name;
-    let image = pokemonDetails.sprites.front_default;
+    let image = pokemonDetails.sprites.other.dream_world.front_default;
     let sound = pokemonDetails.cries.latest;
     let type = pokemonDetails.types[0].type.name;
 
@@ -15,7 +15,7 @@ function allPokemonsTemplate(pokemonDetails, index){
             <div class='abilities-general'>
                 <p>${type}</p>
                 <div class='audio-container'>
-                    <img onclick='playPokemonSound(${number})' class='play-btn' src="./assets/img/play_btn.svg" alt="play button to hear the pokemon's sound">
+                    <img onclick='event.stopPropagation(); playPokemonSound(${number})' class='play-btn' src="./assets/img/play_btn.svg" alt="play button to hear the pokemon's sound">
                     <audio id='audio_${number}' src='${sound}'></audio>
                 </div>
             </div>
@@ -26,7 +26,7 @@ function allPokemonsTemplate(pokemonDetails, index){
 //2. template function for Pokemon overlay + pop-up
 
 function singlePokemonTemplate(pokemonDetails){
-  let image = pokemonDetails.sprites.front_default;
+  let image = pokemonDetails.sprites.other.dream_world.front_default;
   let number = pokemonDetails.id;
   let name = pokemonDetails.name;
 
@@ -137,16 +137,17 @@ function abilityTemplate(pokemonDetails){
 
 }
 
-function evolutionTemplate(evoChain){
-  let pokemonId = evoChain.id;
-  let firstStage = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonId}.png`;
+function evolutionTemplate(chainData){
+  let firstStage = chainData.chain.species.name;
+  let secondStage = chainData.chain.evolves_to[0]?.species?.name || "";
+  let thirdStage = chainData.chain.evolves_to[0]?.evolves_to[0]?.species?.name || "";
 
   return  `<div class='pokemons-evo-chain'>
-            <img class="evo-chain-imgs" src="${firstStage}" alt="images showing the species evolution of the pokemons">
+            <p>${firstStage} &#8594;</p>
+             ${secondStage? `<p>${secondStage} &#8594;</p>` : ""}
+             ${thirdStage? `<p>${thirdStage}</p>` : ""}
           </div>`;
 }
-//problem not solved yet...
-
 
 //3. Error template 
 
