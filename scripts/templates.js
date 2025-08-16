@@ -36,10 +36,18 @@ function singlePokemonTemplate(pokemonDetails){
               <img src="${image}" alt="an image of the pokemon">
             </div>
             <div class="stats">
-              <a href="#" onclick="renderPokemonsStatistics('about', window.currentPokemon)">About</a>
-              <a href="#" onclick="renderPokemonsStatistics('stats', window.currentPokemon)">Stats</a>
-              <a href="#" onclick="renderPokemonsStatistics('ability', window.currentPokemon)">Abilities</a>
-              <a href="#" onclick="renderPokemonsStatistics('evolution', window.currentPokemon)">Evolution</a>
+              <div class="stats-tabs" id='tab_about'>
+                <a href="#" onclick="renderPokemonsStatistics('about', window.currentPokemon); setActiveTabColor('about')">About</a>
+              </div>
+              <div class="stats-tabs" id='tab_stats'>
+                <a href="#" onclick="renderPokemonsStatistics('stats', window.currentPokemon); setActiveTabColor('stats')">Stats</a>
+              </div>
+              <div class="stats-tabs" id='tab_ability'>
+                <a href="#" onclick="renderPokemonsStatistics('ability', window.currentPokemon); setActiveTabColor('ability')">Abilities</a>
+              </div>
+              <div class="stats-tabs" id='tab_evolution'>
+                <a href="#" onclick="renderPokemonsStatistics('evolution', window.currentPokemon); setActiveTabColor('evolution')">Evolution</a>
+              </div>
             </div>
             <div id='pokemon_statistics'></div>
             <div class="arrow-buttons">

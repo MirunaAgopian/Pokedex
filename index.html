@@ -28,7 +28,7 @@
               type="text"
               placeholder="Search pokemon"
             />
-            <p id="error-msg" class='error'></p>
+            <p id="error-msg" class="error"></p>
           </div>
         </nav>
       </div>
@@ -37,10 +37,20 @@
       <div class="main-content">
         <section id="pokemons_container" class="poke-container"></section>
         <!-- Single pokemon container -->
-        <section onclick="closeOverlay()" id="overlay" class="main-overlay d-none">
-          <section onclick="event.stopPropagation()" id="single_pokemon_container" class="d-none"></section>
+        <section
+          onclick="closeOverlay()"
+          id="overlay"
+          class="main-overlay d-none"
+        >
+          <section
+            onclick="event.stopPropagation()"
+            id="single_pokemon_container"
+            class="d-none"
+          ></section>
         </section>
-        <button id="show_more_btn" onclick="displayMorePokemons()">Show more pokemons</button>
+        <button id="show_more_btn" onclick="displayMorePokemons()">
+          Show more pokemons
+        </button>
         <section id="loading_spinner" class="loading-spinner d-none">
           <div class="spinner-text">
             <svg
@@ -80,3 +90,4 @@
     <script src="./scripts/helpers.js"></script>
   </body>
 </html>
+

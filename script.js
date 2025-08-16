@@ -82,6 +82,29 @@ async function getEvoChain(speciesData){
     return pokemonEvoChain;
 }
 
+function extractEvolutionStages(chain){
+  let stages = [];
+  stages.push(chain.species.name);
+  if(chain.evolves_to.length > 0){
+    stages.push(chain.evolves_to[0].species.name);
+
+    if(chain.evolves_to[0].evolves_to.length > 0){
+      stages.push(chain.evolves_to[0].evolves_to[0].species.name);
+    }
+  }
+  return stages;
+}
+
+function renderAllEvolutionChain(evoChainArray, targetPokemonName){
+  for (let chainData of evoChainArray) {
+    const stages = extractEvolutionStages(chainData.chain);
+    if (stages.includes(targetPokemonName.toLowerCase())) {
+      return evolutionTemplate(chainData);
+    }
+  }
+  return "<p>No evolution chain found.</p>";
+}
+
 //2. Rendering functions
 //2.1 Render the first 20 pokemons
 
@@ -124,10 +147,11 @@ function hideLoadingSpinner(){
 function openOverlay(pokemonDetails){
    let overlay = document.getElementById('overlay');
    let singlePokemonContainer = document.getElementById('single_pokemon_container');
-
    window.currentPokemon = pokemonDetails;
    singlePokemonContainer.innerHTML = singlePokemonTemplate(pokemonDetails);
-   renderPokemonsStatistics('about', pokemonDetails);
+   
+   renderPokemonsStatistics(window.currentStatisticsTab, pokemonDetails);
+   setActiveTabColor(window.currentStatisticsTab);
    setSinglePokemonImgColor(pokemonDetails);
 
    overlay.classList.remove('d-none');
@@ -142,9 +166,10 @@ function openOverlayByIndex(index){
 }
 
 
-function renderPokemonsStatistics(section, pokemonDetails) {
+function renderPokemonsStatistics(tab, pokemonDetails) {
+    window.currentStatisticsTab = tab;
     let container = document.getElementById('pokemon_statistics');
-    switch(section){
+    switch(tab){
         case 'about':
             container.innerHTML = aboutTemplate(pokemonDetails);
             break;
@@ -160,28 +185,6 @@ function renderPokemonsStatistics(section, pokemonDetails) {
     }
 }
 
-function extractEvolutionStages(chain){
-  let stages = [];
-  stages.push(chain.species.name);
-  if(chain.evolves_to.length > 0){
-    stages.push(chain.evolves_to[0].species.name);
-
-    if(chain.evolves_to[0].evolves_to.length > 0){
-      stages.push(chain.evolves_to[0].evolves_to[0].species.name);
-    }
-  }
-  return stages;
-}
-
-function renderAllEvolutionChain(evoChainArray, targetPokemonName){
-  for (let chainData of evoChainArray) { //here I should change the evoChainArray with the speciesArray
-    const stages = extractEvolutionStages(chainData.chain);
-    if (stages.includes(targetPokemonName.toLowerCase())) {
-      return evolutionTemplate(chainData);
-    }
-  }
-  return "<p>No evolution chain found.</p>";
-}
 
 //3.Search functions
 
@@ -200,12 +203,10 @@ function searchPokemon(searchQuery) {
 function renderFilteredPokemons(filteredResults){
     let container = document.getElementById('pokemons_container');
     container.innerHTML = '';
-
     filteredResults.forEach(pokemon => {
         let pokemonIndex = detailedPokemons.findIndex(p => p.name === pokemon.name);
-
         if(pokemonIndex !== -1){
-            container.innerHTML += allPokemonsTemplate(pokemon);
+            container.innerHTML += allPokemonsTemplate(pokemon, pokemonIndex);
             setPokemonImgColor(pokemon);
         }
     });

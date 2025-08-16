@@ -93,6 +93,8 @@ function closeOverlay(){
     document.body.classList.remove('lock-scroll');
 }
 
+window.currentStatisticsTab = 'about';
+
 function moveToRight(){
     currentPokemonIndex++;
     if(currentPokemonIndex >= detailedPokemons.length){
@@ -100,6 +102,7 @@ function moveToRight(){
     }
 
     openOverlayByIndex(currentPokemonIndex);
+    renderPokemonsStatistics(window.currentStatisticsTab, window.currentPokemon);
 }
 
 function moveToLeft(){
@@ -108,6 +111,18 @@ function moveToLeft(){
     if(currentPokemonIndex < 0){
         currentPokemonIndex = detailedPokemons.length - 1;
     }
-
     openOverlayByIndex(currentPokemonIndex);
+    renderPokemonsStatistics(window.currentStatisticsTab, window.currentPokemon);
+}
+
+function setActiveTabColor(tab){
+    document.querySelectorAll('.stats-tabs').forEach(el => el.classList.remove('active'));
+    let idMap = {
+        about: 'tab_about',
+        stats: 'tab_stats',
+        ability: 'tab_ability',
+        evolution: 'tab_evolution'
+    };
+    const activeTab = document.getElementById(idMap[tab]);
+    if (activeTab) activeTab.classList.add('active');
 }

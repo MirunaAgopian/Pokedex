@@ -1,17 +1,17 @@
 .grass{
-    background-color: rgb(56, 223, 56);
+    background-color: #7fdb60;
 }
 
 .fire {
-    background-color: rgb(185, 30, 30);
+    background-color: #f08030;
 }
 
 .water {
-    background-color: rgb(68, 68, 238);
+    background-color: #72c6ff;
 }
 
 .bug {
-    background-color: rgba(129, 70, 70, 0.829);
+    background-color: #d0e6d2;
 }
 
 .normal {
@@ -19,7 +19,7 @@
 }
 
 .poison {
-    background-color: rgb(123, 40, 156);
+    background-color: #e8d5ec;
 }
 
 .electric {
