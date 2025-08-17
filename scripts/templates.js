@@ -1,5 +1,4 @@
 //1. template function for the pokemons (all 40)
-
 function allPokemonsTemplate(pokemonDetails, index){
     let number = pokemonDetails.id;
     let name = pokemonDetails.name;
@@ -37,16 +36,16 @@ function singlePokemonTemplate(pokemonDetails){
             </div>
             <div class="stats">
               <div class="stats-tabs" id='tab_about'>
-                <a href="#" onclick="renderPokemonsStatistics('about', window.currentPokemon); setActiveTabColor('about')">About</a>
+                <span onclick="renderPokemonsStatistics('about', window.currentPokemon); setActiveTabColor('about');">About</span>
               </div>
               <div class="stats-tabs" id='tab_stats'>
-                <a href="#" onclick="renderPokemonsStatistics('stats', window.currentPokemon); setActiveTabColor('stats')">Stats</a>
+                <span onclick="renderPokemonsStatistics('stats', window.currentPokemon); setActiveTabColor('stats');">Stats</span>
               </div>
               <div class="stats-tabs" id='tab_ability'>
-                <a href="#" onclick="renderPokemonsStatistics('ability', window.currentPokemon); setActiveTabColor('ability')">Abilities</a>
+                <span onclick="renderPokemonsStatistics('ability', window.currentPokemon); setActiveTabColor('ability');">Abilities</span>
               </div>
               <div class="stats-tabs" id='tab_evolution'>
-                <a href="#" onclick="renderPokemonsStatistics('evolution', window.currentPokemon); setActiveTabColor('evolution')">Evolution</a>
+                <span onclick="renderPokemonsStatistics('evolution', window.currentPokemon); setActiveTabColor('evolution');">Evolution</span>
               </div>
             </div>
             <div id='pokemon_statistics'></div>
@@ -92,35 +91,27 @@ function statsTemplate(pokemonDetails){
     return  `<table class='table-about'>
               <tr>
                 <td>Base experience</td>
-                <td>
-                     <div class="stat-bar">
-                      <div class="fill" style="width: ${experience}%;"></div>
-                     </div>
-                 </td>  
+                <td class="stat-bar">
+                  <div class="fill" style="width: ${experience}%;"><span>${experience}</span></div>
+                </td>  
               </tr>
               <tr>
                 <td>Attack</td>
-                 <td>
-                     <div class="stat-bar">
-                      <div class="fill" style="width: ${attack}%;"></div>
-                     </div>
-                 </td>  
+                <td class="stat-bar">
+                  <div class="fill" style="width: ${attack}%;"><span>${attack}</span></div>
+                </td>  
               </tr>
               <tr>
                 <td>Defense</td>
-                <td>
-                     <div class="stat-bar">
-                      <div class="fill" style="width: ${defense}%;"></div>
-                     </div>
-                 </td>  
+                <td class="stat-bar">
+                  <div class="fill" style="width: ${defense}%;"><span>${defense}</span></div>
+                </td>  
               </tr>
               <tr>
                 <td>Speed</td>
-                <td>
-                     <div class="stat-bar">
-                      <div class="fill" style="width: ${speed}%;"></div>
-                     </div>
-                 </td>  
+                <td class="stat-bar">
+                  <div class="fill" style="width: ${speed}%;"><span>${speed}</span></div>
+                </td>  
               </tr>
             </table>`
 } 
@@ -150,10 +141,27 @@ function evolutionTemplate(chainData){
   let secondStage = chainData.chain.evolves_to[0]?.species?.name || "";
   let thirdStage = chainData.chain.evolves_to[0]?.evolves_to[0]?.species?.name || "";
 
-  return  `<div class='pokemons-evo-chain'>
-            <p>${firstStage} &#8594;</p>
-             ${secondStage? `<p>${secondStage} &#8594;</p>` : ""}
-             ${thirdStage? `<p>${thirdStage}</p>` : ""}
+  let firstImg = extractEvolutionImages(firstStage);
+  let secondImg = secondStage ? extractEvolutionImages(secondStage) : "";
+  let thirdImg = thirdStage ? extractEvolutionImages(thirdStage) : "";
+
+  return `<div class='pokemons-evo-chain'>
+            <div class='evo-txt-img'>
+              <img class='evo-sprites' src="${firstImg}" alt="${firstStage}">
+              <p>${firstStage}</p>
+            </div>
+            <div class="evo-arrow"></div>
+             ${secondStage? `
+              <div class='evo-txt-img'>
+                <img class='evo-sprites' src="${secondImg}" alt="${secondStage}">
+              <p>${secondStage}</p>
+            </div>` : ""}
+            <div class="evo-arrow"></div>
+              ${thirdStage? `
+              <div class='evo-txt-img'>
+                <img class='evo-sprites' src="${thirdImg}" alt="${thirdStage}">
+              <p>${thirdStage}</p>
+            </div>` : ""}
           </div>`;
 }
 

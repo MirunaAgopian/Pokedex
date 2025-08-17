@@ -1,15 +1,4 @@
-//1. functon to play the pokemon audio
-
-function playPokemonSound(pokemonId){
-    let audio = document.getElementById(`audio_${pokemonId}`);
-
-    if(audio){
-        audio.paused ? audio.play() : audio.pause();
-    }
-}
-
-
-//2. function for pokemon background colors
+//1. function for pokemon background colors
 
 function setPokemonImgColor(pokemonDetails) {
     const type = pokemonDetails.types[0].type.name;
@@ -63,56 +52,12 @@ function setSinglePokemonImgColor(pokemonDetails) {
     }
 } 
 
-//3. Helper functions for the search bar
-
-function showAllPokemons(){
-    let errorContainer = document.getElementById('error-msg');
-    errorContainer.innerHTML = '';
-    return detailedPokemons;
-}
-
-function showErrorMessage(){
-    let errorContainer = document.getElementById('error-msg');
-    errorContainer.innerHTML = searchError();
-    return [];
-}
-
-function showSearchResults(trimmedQuery){
-    let errorContainer = document.getElementById('error-msg');
-    errorContainer.innerHTML = '';
-    return detailedPokemons.filter(pokemon => {
-        return pokemon.name?.toLowerCase().includes(trimmedQuery);
-    });
-}
-
-//4. Helper functions for the main overlay
+//2. Helper functions for the main overlay
 
 function closeOverlay(){
     document.getElementById('overlay').classList.toggle('d-none');
     document.getElementById('single_pokemon_container').classList.toggle('d-none');
     document.body.classList.remove('lock-scroll');
-}
-
-window.currentStatisticsTab = 'about';
-
-function moveToRight(){
-    currentPokemonIndex++;
-    if(currentPokemonIndex >= detailedPokemons.length){
-        currentPokemonIndex = 0;
-    }
-
-    openOverlayByIndex(currentPokemonIndex);
-    renderPokemonsStatistics(window.currentStatisticsTab, window.currentPokemon);
-}
-
-function moveToLeft(){
-    currentPokemonIndex--;
-
-    if(currentPokemonIndex < 0){
-        currentPokemonIndex = detailedPokemons.length - 1;
-    }
-    openOverlayByIndex(currentPokemonIndex);
-    renderPokemonsStatistics(window.currentStatisticsTab, window.currentPokemon);
 }
 
 function setActiveTabColor(tab){
@@ -126,3 +71,11 @@ function setActiveTabColor(tab){
     const activeTab = document.getElementById(idMap[tab]);
     if (activeTab) activeTab.classList.add('active');
 }
+
+function handleOverlayChanges(){
+    let singlePokemonContainer = document.getElementById("single_pokemon_container");
+    let overlay = document.getElementById("overlay");
+    overlay.classList.remove("d-none");
+    singlePokemonContainer.classList.remove("d-none");
+    document.body.classList.add("lock-scroll");
+} 

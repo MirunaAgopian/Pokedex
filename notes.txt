@@ -1,11 +1,112 @@
-To do:
+!!!Timing issue created by refractoring the function openOverlay()!!
 
-1. refractor the function renderAllEvolutionChain(evoChainArray, targetPokemonName)
-so that it takes the species array as an argument and not the evoChainArray!!!
+The first version of the funtion openOvelay() looked like this
 
-+ then add evo chain images !!!!!
+function openOverlay(pokemonDetails){
+   let overlay = document.getElementById('overlay');
+   let singlePokemonContainer = document.getElementById('single_pokemon_container');
+   window.currentPokemon = pokemonDetails;
+   singlePokemonContainer.innerHTML = singlePokemonTemplate(pokemonDetails);
+   
+   renderPokemonsStatistics(window.currentStatisticsTab, pokemonDetails);
+   setActiveTabColor(window.currentStatisticsTab);
+   setSinglePokemonImgColor(pokemonDetails);
 
-2. fix bugs related to:
+   overlay.classList.remove('d-none');
+   singlePokemonContainer.classList.remove('d-none');
+   document.body.classList.add('lock-scroll');
+}
 
-- media player error
+and the CSS looked like this
+.stat-bar {
+  width: 100px;
+  height: 16px;
+  background-color: #928787;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-top: 4px;
+  display: flex;
+  align-items: center;
+}
 
+.fill {
+  height: 100%;
+  background-color: #49bb49;
+  transition: width 0.5s ease;
+  padding: 0 4px;
+  display: flex;
+  align-items: center;
+}
+
+and this is the HTML:
+
+<table class='table-about'>
+    <tr>
+        <td>Base experience</td>
+        <td class="stat-bar">
+            <div class="fill" style="width: ${experience}%;"><span>${experience}</span></div>
+        </td>  
+    </tr> ... etc.
+
+I have refractored the function openOvelay(), by isolating some code lines and creating a helper function
+
+function openOverlay(pokemonDetails) {
+  let singlePokemonContainer = document.getElementById("single_pokemon_container");
+  window.currentPokemon = pokemonDetails;
+  singlePokemonContainer.innerHTML = singlePokemonTemplate(pokemonDetails);
+  renderPokemonsStatistics(window.currentStatisticsTab, pokemonDetails);
+  setActiveTabColor(window.currentStatisticsTab);
+  setSinglePokemonImgColor(pokemonDetails);
+  handleOverlayChanges();
+}
+
+function handleOverlayChanges(){
+    let singlePokemonContainer = document.getElementById("single_pokemon_container");
+    let overlay = document.getElementById("overlay");
+    overlay.classList.remove("d-none");
+    singlePokemonContainer.classList.remove("d-none");
+    document.body.classList.add("lock-scroll");
+} 
+AND this resulted in a layout timing issue, behaving as such ->
+
+after doing so, I could still see the classes "fill" and the "width - styiling" being applied to the class "stat-bar"
+but the green fill did not appear anymore
+
+This is a layout timing issue in javascript. 
+After looking up in the debugger and unclapping the overlay element "section#single_pokemon_container" I navigated dowh its children elements
+till I got to the "fill" class and I saw this:
+
+className: "fill"
+clientHeight: 0
+clientLeft: 0
+clientTop: 0
+clientWidth: 44
+
+the client height refers to the height of the <div> element coinatinig the class='fill'
+if the clientHeight is 0, that means that the div cointainer modified in the helper function handleOverlayChanges()
+has no height, that is why the green fill was not visible anymore
+
+Solution: I updated the CSS of the .fill class containing a min-height of 16:px
+
+.fill {
+  height: 100%;
+  min-height:16px;
+  background-color: #49bb49;
+  transition: width 0.5s ease;
+  padding: 0 4px;
+  display: flex;
+  align-items: center;
+}
+
+The parent cointainer <div class='stats-bar'> was hidden at the moment the helper function ran and added the child element <div class='fill'>. 
+so that means that the <div class='fill'> was rendered before its parent element <div class='stats-bar'> which had defined height of 16px. 
+The child element (class fill) having a 100% height but no refference point (no parent element with a fixed height as the .stat-bar has) did not have a reference point for it height:100%
+that is why the green fill did not apply anymore afer isolating the code in a helper function
+
+
+conclusion:
+
+Is JavaScript “Prone” to Timing Issues?
+Yes — JavaScript is single-threaded and event-driven.
+This means it doesn’t wait for layout, rendering, or asynchronous operations 
+unless explicitly told to. This leads to what developers call timing issues, especially in the browser.

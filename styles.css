@@ -112,7 +112,7 @@ audio {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    width: 300px;
+    width: 310px;
     height: 500px;
     border: 2px solid #9dacb1;
     border-radius: 20px;
@@ -188,7 +188,6 @@ audio {
 }
 
 .table-about td {
-  padding: 8px 16px;
   vertical-align: top;
 }
 
@@ -217,17 +216,25 @@ audio {
 
 .stat-bar {
   width: 100px;
-  height: 10px;
+  height: 16px;
   background-color: #928787;
   border-radius: 5px;
   overflow: hidden;
   margin-top: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }
 
 .fill {
   height: 100%;
+  min-height:16px;
   background-color: #49bb49;
   transition: width 0.5s ease;
+  padding: 0 4px;
+   display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }
 
 /* Evo-chain */
@@ -241,11 +248,23 @@ audio {
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    padding: 8px 0;
 }
 
 .evo-chain-imgs {
     height: 48px;
     width: 48px;
+}
+
+.evo-txt-img {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.evo-txt-img p {
+    font-size: 14px;
 }
 
 /* Spinner overlay */
