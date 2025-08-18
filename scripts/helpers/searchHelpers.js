@@ -17,3 +17,5 @@ function showSearchResults(trimmedQuery){
         return pokemon.name?.toLowerCase().includes(trimmedQuery);
     });
 }
+
+// here I need to hide de display more button when the user searches a pokemon

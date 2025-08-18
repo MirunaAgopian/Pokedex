@@ -33,3 +33,31 @@
 .fairy {
     background-color: pink;
 }
+
+.fighting {
+    background-color: #2F4F4F;
+}
+
+.psychic {
+    background-color: #6A5ACD;
+}
+
+.rock {
+    background-color: #8B7D6B;
+}
+
+.ghost {
+    background-color: #C0C0C0;
+}
+
+.ice {
+    background-color: #ADD8E6;
+}
+
+.dragon {
+    background-color: #6A0DAD;
+}
+
+.dark {
+    background-color: #3B3B3B;
+}

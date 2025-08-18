@@ -1,4 +1,4 @@
-let BASE_URL = "https://pokeapi.co/api/v2/pokemon?limit=40&offset=0";
+let BASE_URL = "https://pokeapi.co/api/v2/pokemon?limit=200&offset=0";
 let pokemonsArray = [];
 let detailedPokemons = [];
 let speciesData = [];
@@ -11,21 +11,31 @@ window.currentStatisticsTab = 'about';
 //1.1 Render the first 20 pokemons
 function displayPokemons() {
   let container = document.getElementById("pokemons_container");
-  container.innerHTML = "";
-  let batch = detailedPokemons.slice(0, displayedCount);
+  let endIndex = Math.min(currentPokemonIndex + displayedCount, detailedPokemons.length);
+  let batch = detailedPokemons.slice(currentPokemonIndex, endIndex);
   batch.forEach((pokemonDetails, index) => {
-    container.innerHTML += allPokemonsTemplate(pokemonDetails, index);
+    container.innerHTML += allPokemonsTemplate(pokemonDetails, currentPokemonIndex + index);
     setPokemonImgColor(pokemonDetails);
   });
+  currentPokemonIndex = endIndex;
 }
 
-//1.2 render the last 20 pokemons
+//1.2 render more pokemons
 function displayMorePokemons() {
-  displayedCount = pokemonsArray.length;
-  showLoadingSpinner();
-  setTimeout(hideLoadingSpinner, 2000);
-  displayPokemons();
-  document.getElementById("show_more_btn").disabled = true;
+  const button = document.getElementById("show_more_btn");
+  if(currentPokemonIndex >= detailedPokemons.length){
+    button.disabled = true;
+  } else {
+    button.disabled = true;
+    showLoadingSpinner();
+    setTimeout(() => {
+      hideLoadingSpinner();
+      displayPokemons();
+      if(currentPokemonIndex < detailedPokemons.length){
+        button.disabled = false;
+      }
+    }, 2000);
+  }  
 }
 
 //1.3. Render & hide loading screen
@@ -52,12 +62,12 @@ function openOverlay(pokemonDetails) {
 }
 
 function openOverlayByIndex(index) {
-  currentPokemonIndex = index;
+  currentOverlayIndex = index;
   let pokemonDetails = detailedPokemons[index];
   openOverlay(pokemonDetails);
 }
 
-function renderPokemonsStatistics(tab, pokemonDetails) {
+async function renderPokemonsStatistics(tab, pokemonDetails) {
   window.currentStatisticsTab = tab;
   let container = document.getElementById("pokemon_statistics");
   switch (tab) {
@@ -71,10 +81,7 @@ function renderPokemonsStatistics(tab, pokemonDetails) {
       container.innerHTML = abilityTemplate(pokemonDetails);
       break;
     case "evolution":
-      container.innerHTML = renderAllEvolutionChain(
-        evoChain,
-        pokemonDetails.name
-      );
+      container.innerHTML = await renderAllEvolutionChain(pokemonDetails.evoChain, pokemonDetails.name, pokemonDetails);
       break;
   }
 }

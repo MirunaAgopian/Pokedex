@@ -1,17 +1,17 @@
 function moveToRight(){
-    currentPokemonIndex++;
-    if(currentPokemonIndex >= detailedPokemons.length){
-        currentPokemonIndex = 0;
+    currentOverlayIndex++;
+    if(currentOverlayIndex >= detailedPokemons.length){
+        currentOverlayIndex = 0;
     }
-    openOverlayByIndex(currentPokemonIndex);
+    openOverlayByIndex(currentOverlayIndex);
     renderPokemonsStatistics(window.currentStatisticsTab, window.currentPokemon);
 }
 
 function moveToLeft(){
-    currentPokemonIndex--;
-    if(currentPokemonIndex < 0){
-        currentPokemonIndex = detailedPokemons.length - 1;
+    currentOverlayIndex--;
+    if(currentOverlayIndex < 0){
+        currentOverlayIndex = detailedPokemons.length - 1;
     }
-    openOverlayByIndex(currentPokemonIndex);
+    openOverlayByIndex(currentOverlayIndex);
     renderPokemonsStatistics(window.currentStatisticsTab, window.currentPokemon);
 }

@@ -240,18 +240,21 @@ audio {
 /* Evo-chain */
 #pokemon_statistics{
     display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
 }
 
 .pokemons-evo-chain {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     width: 100%;
     padding: 8px 0;
+    gap: 20px;
 }
 
-.evo-chain-imgs {
+.evo-sprites {
     height: 48px;
     width: 48px;
 }

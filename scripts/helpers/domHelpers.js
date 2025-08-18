@@ -23,6 +23,20 @@ function setPokemonImgColor(pokemonDetails) {
         pokeImg.classList.add('ground');
     } else if(type === 'fairy'){
         pokeImg.classList.add('fairy');
+    } else if(type === 'fighting'){
+        pokeImg.classList.add('fighting');
+    } else if(type === 'psychic'){
+        pokeImg.classList.add('psychic');
+    } else if(type === 'rock'){
+        pokeImg.classList.add('rock');
+    } else if(type === 'ghost'){
+        pokeImg.classList.add('ghost');
+    } else if(type === 'ice'){
+        pokeImg.classList.add('ice');
+    } else if(type === 'dragon'){
+        pokeImg.classList.add('dragon');
+    } else if(type === 'dark'){
+        pokeImg.classList.add('dark');
     }
 }
 
@@ -49,6 +63,20 @@ function setSinglePokemonImgColor(pokemonDetails) {
         SinglePokeImg.classList.add('ground');
     } else if(type === 'fairy'){
         SinglePokeImg.classList.add('fairy');
+    } else if(type === 'fighting'){
+        SinglePokeImg.classList.add('fighting');
+    } else if(type === 'psychic'){
+        SinglePokeImg.classList.add('psychic');
+    } else if(type === 'rock'){
+        SinglePokeImg.classList.add('rock');
+    } else if(type === 'ghost'){
+        SinglePokeImg.classList.add('ghost');
+    } else if(type === 'ice'){
+        SinglePokeImg.classList.add('ice');
+    } else if(type === 'dragon'){
+        SinglePokeImg.classList.add('dragon');
+    } else if(type === 'dark'){
+        SinglePokeImg.classList.add('dark');
     }
 } 
 

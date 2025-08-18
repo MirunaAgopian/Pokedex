@@ -12,10 +12,12 @@ function extractEvolutionStages(chain) {
 
 function extractEvolutionImages(name) {
   const match = detailedPokemons.find((p) => p.name.toLowerCase() === name.toLowerCase());
-  return match?.sprites?.front_default || "";
+  return match?.sprites?.other.dream_world.front_default || "";
 }
 
-function renderAllEvolutionChain(evoChainArray, targetPokemonName) {
+
+async function renderAllEvolutionChain(evoChainArray, targetPokemonName, pokemonDetails) {
+  evoChainArray = await getCombinedEvolutionChainData(pokemonDetails);
   for (let chainData of evoChainArray) {
         const stages = extractEvolutionStages(chainData.chain);
         const matchFound = stages.some(stage => stage.name.toLowerCase() === targetPokemonName.toLowerCase());

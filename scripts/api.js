@@ -9,8 +9,6 @@ async function getPokemons(path = "") {
     let responseAsJson = await response.json();
     pokemonsArray = responseAsJson.results;
     detailedPokemons = await getSinglePokemon(pokemonsArray);
-    speciesData = await getSpeciesDetails(detailedPokemons);
-    evoChain = await getEvoChain(speciesData);
     displayPokemons();
   }
 }
@@ -58,4 +56,14 @@ async function getEvoChain(speciesData) {
     }
   }
   return pokemonEvoChain;
+}
+
+async function getCombinedEvolutionChainData(pokemonDetails){
+    if (!pokemonDetails.speciesData || !pokemonDetails.evoChain) {
+    const speciesData = await getSpeciesDetails([pokemonDetails]);
+    const evoChain = await getEvoChain(speciesData);
+    pokemonDetails.speciesData = speciesData[0];
+    pokemonDetails.evoChain = evoChain;
+  }
+  return pokemonDetails.evoChain;
 }
