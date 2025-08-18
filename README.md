@@ -47,7 +47,13 @@ Pokedex/
     └── colors.css
 │ 
 ├── scripts/
-│   └── helpers.js
+│   └── helpers/
+        └── audioHelpers.js
+        └── domHelpers.js
+        └── navigationHelpers.js
+        └── searchHelpers.js
+    └── api.js
+    └── evolution.js
     └── templates.js
 ├── assets/
     └── fonts
