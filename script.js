@@ -102,6 +102,9 @@ function searchPokemon(searchQuery) {
 function renderFilteredPokemons(filteredResults) {
   let container = document.getElementById("pokemons_container");
   container.innerHTML = "";
+  if(!Array.isArray(filteredResults)){
+    return;
+  }
   filteredResults.forEach((pokemon) => {
     let pokemonIndex = detailedPokemons.findIndex((p) => p.name === pokemon.name);
     if (pokemonIndex !== -1) {
@@ -114,6 +117,10 @@ function renderFilteredPokemons(filteredResults) {
 let searchBar = document.getElementById("search_bar");
 searchBar.addEventListener("input", function () {
   let searchQuery = searchBar.value.toLowerCase();
-  let filteredResults = searchPokemon(searchQuery);
-  renderFilteredPokemons(filteredResults);
+  if(searchQuery === ''){
+    showAllPokemons();
+  } else {
+    let filteredResults = searchPokemon(searchQuery);
+    renderFilteredPokemons(filteredResults);
+  }
 });

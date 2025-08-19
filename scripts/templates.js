@@ -14,8 +14,10 @@ function allPokemonsTemplate(pokemonDetails, index){
             <div class='abilities-general'>
                 <p>${type}</p>
                 <div class='audio-container'>
-                    <img onclick='event.stopPropagation(); playPokemonSound(${number})' class='play-btn' src="./assets/img/play_btn.svg" alt="play button to hear the pokemon's sound">
-                    <audio id='audio_${number}' src='${sound}'></audio>
+                    <img onclick='event.stopPropagation(); playPokemonSound("${sound}")' 
+                    class='play-btn' 
+                    src="./assets/img/play_btn.svg" 
+                    alt="play button to hear the pokemon's sound">
                 </div>
             </div>
     </div>`;
