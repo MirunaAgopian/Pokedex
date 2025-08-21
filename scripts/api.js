@@ -1,24 +1,28 @@
 //1. Fetching data
-//1.1 - GET all 40 Pokemons
+//1.1 - GET all Pokemons
 
-async function getPokemons(path = "") {
-  let response = await fetch(BASE_URL + path + ".json");
-  if (!response.ok) {
+async function getPokemons(offset = 0, limit = displayedCount) {
+  const response = await fetch(`${BASE_URL}?offset=${offset}&limit=${limit}`);
+  if(!response.ok){
     throw new Error(`HTTP error! Status: ${response.status}`);
-  } else {
-    let responseAsJson = await response.json();
-    pokemonsArray = responseAsJson.results;
-    detailedPokemons = await getSinglePokemon(pokemonsArray);
-    displayPokemons();
   }
+  const responseAsJson = await response.json();
+  if(totalAvailablePokemons === 0){
+    totalAvailablePokemons = responseAsJson.count;
+  }
+  const newResponse = await getSinglePokemon(responseAsJson.results);
+  detailedPokemons.push(...newResponse);
+  displayPokemons(newResponse);
+  currentPokemonIndex += limit;
 }
 
 //1.2. GET individual pokemon
+
 async function getSinglePokemon(pokemonsArray) {
-  let allDetails = [];
-  for (let pokemon of pokemonsArray) {
-    let response = await fetch(pokemon.url);
-    if (!response.ok) {
+  const allDetails = [];
+  for(const pokemon of pokemonsArray){
+    const response = await fetch(pokemon.url);
+    if(!response.ok){
       throw new Error(`Failed to fetch ${pokemon.name}`);
     } else {
       pokemonDetails = await response.json();
@@ -29,7 +33,7 @@ async function getSinglePokemon(pokemonsArray) {
 }
 
 //1.3. GET species data and evo chain
-
+//THESE FUNCTIONS SHOULD BE REFRACTORED! SEE ALSO EVOLUTION.JS!
 async function getSpeciesDetails(detailedPokemons) {
   let pokemonSpeciesDatails = [];
   for (let pokemon of detailedPokemons) {

@@ -134,6 +134,27 @@ audio {
     width: 100%;
 }
 
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.close-btn {
+    height: 32px;
+    width: 32px;
+    cursor: pointer;
+    display: flex;
+    align-self: flex-end;
+}
+
+.close-btn:hover {
+    transform: scale(1.2);
+    filter: drop-shadow(0 0 6px #d45d79) brightness(1.2);
+}
+
+
 .single-pokemon-img{
     height: 160px;
     width: 100%;
@@ -251,7 +272,7 @@ audio {
     align-items: center;
     width: 100%;
     padding: 8px 0;
-    gap: 20px;
+    gap: 15px;
 }
 
 .evo-sprites {

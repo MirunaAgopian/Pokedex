@@ -32,7 +32,11 @@ function singlePokemonTemplate(pokemonDetails){
   let name = pokemonDetails.name;
 
     return `<div class="single-pokemon-card">
-            <h3><span>${number}</span>${name}</h3>
+            <div class='card-header'>
+              <h3><span>${number}</span>${name}</h3>
+              <img onclick="closeOverlay(); event.stopPropagation()" class="close-btn"
+              src="./assets/img/close_btn.png" alt="x-button to close the overlay"/>
+            </div>
             <div id='single_pokemon_${number}' class='single-pokemon-img'>
               <img src="${image}" alt="an image of the pokemon">
             </div>

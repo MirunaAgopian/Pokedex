@@ -1,52 +1,50 @@
-let BASE_URL = "https://pokeapi.co/api/v2/pokemon?limit=200&offset=0";
+let BASE_URL = "https://pokeapi.co/api/v2/pokemon";
 let pokemonsArray = [];
 let detailedPokemons = [];
 let speciesData = [];
 let evoChain = [];
 let displayedCount = 20;
 let currentPokemonIndex = 0;
+let totalAvailablePokemons = 0;
 window.currentStatisticsTab = 'about';
 
 //1. Rendering functions
 //1.1 Render the first 20 pokemons
-function displayPokemons() {
-  let container = document.getElementById("pokemons_container");
-  let endIndex = Math.min(currentPokemonIndex + displayedCount, detailedPokemons.length);
-  let batch = detailedPokemons.slice(currentPokemonIndex, endIndex);
-  batch.forEach((pokemonDetails, index) => {
-    container.innerHTML += allPokemonsTemplate(pokemonDetails, currentPokemonIndex + index);
-    setPokemonImgColor(pokemonDetails);
+
+function displayPokemons(pokemonBatch){
+  const container = document.getElementById('pokemons_container');
+  pokemonBatch.forEach((pokemon, index) =>{
+    container.innerHTML += allPokemonsTemplate(pokemon, currentPokemonIndex + index);
+    setPokemonImgColor(pokemon);
   });
-  currentPokemonIndex = endIndex;
 }
 
 //1.2 render more pokemons
-function displayMorePokemons() {
+async function displayMorePokemons() {
   const button = document.getElementById("show_more_btn");
-  if(currentPokemonIndex >= detailedPokemons.length){
+  if(currentPokemonIndex >= totalAvailablePokemons){
     button.disabled = true;
-  } else {
-    button.disabled = true;
-    showLoadingSpinner();
-    setTimeout(() => {
-      hideLoadingSpinner();
-      displayPokemons();
-      if(currentPokemonIndex < detailedPokemons.length){
-        button.disabled = false;
-      }
-    }, 2000);
-  }  
+    return;
+  } 
+  button.disabled = true;
+  toggleLoadingSpinner(true);
+  try{
+    await getPokemons(currentPokemonIndex, displayedCount);
+  } catch (error){
+    console.error("Error fetching more Pokemons:", error);
+  }
+  toggleLoadingSpinner(false);
+  button.disabled = false;
 }
 
 //1.3. Render & hide loading screen
-function showLoadingSpinner() {
-  let spinnerOverlay = document.getElementById("loading_spinner");
-  spinnerOverlay.classList.remove("d-none");
-}
-
-function hideLoadingSpinner() {
-  let spinnerOverlay = document.getElementById("loading_spinner");
-  spinnerOverlay.classList.add("d-none");
+function toggleLoadingSpinner(show){
+  const spinnerOverlay = document.getElementById('loading_spinner');
+  if(show){
+    spinnerOverlay.classList.remove('d-none');
+  } else {
+    spinnerOverlay.classList.add('d-none');
+  }
 }
 
 //1.4.Render single pokemon overlay
