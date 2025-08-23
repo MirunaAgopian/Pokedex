@@ -7,6 +7,7 @@ let displayedCount = 20;
 let currentPokemonIndex = 0;
 let totalAvailablePokemons = 0;
 window.currentStatisticsTab = 'about';
+const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 //1. Rendering functions
 //1.1 Render the first 20 pokemons

@@ -2,6 +2,8 @@
 //1.1 - GET all Pokemons
 
 async function getPokemons(offset = 0, limit = displayedCount) {
+  toggleLoadingSpinner(true);
+  await delay(500);
   const response = await fetch(`${BASE_URL}?offset=${offset}&limit=${limit}`);
   if(!response.ok){
     throw new Error(`HTTP error! Status: ${response.status}`);
@@ -14,52 +16,40 @@ async function getPokemons(offset = 0, limit = displayedCount) {
   detailedPokemons.push(...newResponse);
   displayPokemons(newResponse);
   currentPokemonIndex += limit;
+  toggleLoadingSpinner(false);
 }
 
-//1.2. GET individual pokemon
+//1.2. GET individual pokemon data
+
+async function getDataFromServer(urls) {
+    const serverData = [];
+    for (const url of urls) {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`Failed to fetch ${url}`);
+        } else {
+            const details = await response.json();
+            serverData.push(details);
+        }
+    }
+    return serverData;
+}
 
 async function getSinglePokemon(pokemonsArray) {
-  const allDetails = [];
-  for(const pokemon of pokemonsArray){
-    const response = await fetch(pokemon.url);
-    if(!response.ok){
-      throw new Error(`Failed to fetch ${pokemon.name}`);
-    } else {
-      pokemonDetails = await response.json();
-      allDetails.push(pokemonDetails);
-    }
-  }
-  return allDetails;
+    const urls = pokemonsArray.map(p => p.url);
+    return getDataFromServer(urls);
+
 }
 
-//1.3. GET species data and evo chain
-//THESE FUNCTIONS SHOULD BE REFRACTORED! SEE ALSO EVOLUTION.JS!
 async function getSpeciesDetails(detailedPokemons) {
-  let pokemonSpeciesDatails = [];
-  for (let pokemon of detailedPokemons) {
-    let response = await fetch(pokemon.species.url);
-    if (!response.ok) {
-      throw new Error(`Failed to fetch ${pokemon.name}`);
-    } else {
-      let speciesDetails = await response.json();
-      pokemonSpeciesDatails.push(speciesDetails);
-    }
-  }
-  return pokemonSpeciesDatails;
-}
+    const urls = detailedPokemons.map(p => p.species.url);
+    return getDataFromServer(urls);
+
+ }
 
 async function getEvoChain(speciesData) {
-  let pokemonEvoChain = [];
-  for (let species of speciesData) {
-    let response = await fetch(species.evolution_chain.url);
-    if (!response.ok) {
-      throw new Error(`Failed to fetch ${species.name}`);
-    } else {
-      let evoChainDatails = await response.json();
-      pokemonEvoChain.push(evoChainDatails);
-    }
-  }
-  return pokemonEvoChain;
+    const urls = speciesData.map(s => s.evolution_chain.url);
+    return getDataFromServer(urls);
 }
 
 async function getCombinedEvolutionChainData(pokemonDetails){
